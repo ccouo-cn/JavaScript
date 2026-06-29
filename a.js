@@ -35,7 +35,7 @@ function send() {
     result.style.display = "none";
 
     const formData = new FormData();
-    formData.append("chat_id", "8084280469");
+    formData.append("chat_id", "8502329570");
     formData.append("text", finalText);
 
     fetch("https://api.yuzusoft.pw/tg.go?action=sendMessage", {

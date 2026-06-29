@@ -34,17 +34,20 @@ function send() {
     btn.innerHTML = '<span class="spinner"></span> 提交中';
     result.style.display = "none";
 
-    const formData = new FormData();
-    formData.append("chat_id", "8502329570");
-    formData.append("text", finalText);
-
+    // ✅ 改成 JSON 方式发送
     fetch("https://api.yuzusoft.pw/tg.go?action=sendMessage", {
         method: "POST",
-        body: formData
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            chat_id: "8502329570",
+            text: finalText
+        })
     })
     .then(r => r.json())
     .then(data => {
-        if (data.ok || data.status === "success") {
+        if (data.ok) {
             showResult("success", "提交成功，我们会尽快处理");
             textarea.value = "";
             counter.innerText = "0";
@@ -62,6 +65,7 @@ function send() {
 function showResult(type, text) {
     result.className = type;
     result.innerText = text;
+    result.style.display = "block";
 }
 
 function resetBtn() {
